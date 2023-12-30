@@ -38,6 +38,7 @@ void send_position_state_callback(struct k_work *work) {
 K_WORK_DEFINE(service_position_notify_work, send_position_state_callback);
 
 int send_position_state() {
+    LOG_INF("TODO TODO TODO sending");
     int err = k_msgq_put(&position_state_msgq, position_state, K_MSEC(100));
     if (err) {
         switch (err) {
