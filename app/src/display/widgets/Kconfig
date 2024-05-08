@@ -8,6 +8,11 @@ config ZMK_WIDGET_LAYER_STATUS
     depends on !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
     select LV_USE_LABEL
 
+config ZMK_WIDGET_SPLIT_MODE_STATUS
+    bool "Widget to display the serial transport mode"
+    depends on ZMK_SPLIT && ZMK_SPLIT_BLE && ZMK_SPLIT_SERIAL
+    select LV_USE_LABEL
+
 config ZMK_WIDGET_BATTERY_STATUS
     bool "Widget for battery charge information, using small icons"
     depends on BT

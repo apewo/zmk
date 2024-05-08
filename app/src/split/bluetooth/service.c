@@ -160,7 +160,7 @@ BT_GATT_SERVICE_DEFINE(
 #endif // IS_ENABLED(CONFIG_ZMK_SPLIT_PERIPHERAL_HID_INDICATORS)
 );
 
-void send_position_state_impl(uint8_t *state, int len) {
+void send_position_state_impl_bluetooth(uint8_t *state, int len) {
     memcpy(position_state, state, MIN(len, sizeof(position_state)));
     int err = bt_gatt_notify(NULL, &split_svc.attrs[1], state, len);
     if (err) {

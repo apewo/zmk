@@ -22,6 +22,8 @@ Definition files:
 | `CONFIG_ZMK_WIDGET_BATTERY_STATUS`                 | bool | Enable a widget to show battery charge information             | y       |
 | `CONFIG_ZMK_WIDGET_BATTERY_STATUS_SHOW_PERCENTAGE` | bool | If battery widget is enabled, show percentage instead of icons | n       |
 | `CONFIG_ZMK_WIDGET_OUTPUT_STATUS`                  | bool | Enable a widget to show the current output (USB/BLE)           | y       |
+//TODO TODO TODO APEWO
+| `CONFIG_ZMK_WIDGET_SPLIT_MODE_STATUS`              | bool | Enable a widget to show the current split mode transport (SERIAL/BLE)           | y       |
 | `CONFIG_ZMK_WIDGET_WPM_STATUS`                     | bool | Enable a widget to show words per minute                       | n       |
 
 Note that `CONFIG_ZMK_DISPLAY_INVERT` setting might not work as expected with custom status screens that utilize images.

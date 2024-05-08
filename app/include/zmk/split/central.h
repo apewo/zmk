@@ -16,4 +16,5 @@ void zmk_position_state_change_handle(struct zmk_position_state_changed *ev);
 void zmk_sensor_event_handle(struct zmk_sensor_event *ev);
 #endif
 
-void send_split_run_impl(struct zmk_split_run_behavior_payload_wrapper *payload_wrapper);
+void send_split_run_bt_impl(struct zmk_split_run_behavior_payload_wrapper *payload_wrapper);
+void send_split_run_serial_impl(struct zmk_split_run_behavior_payload_wrapper *payload_wrapper);

@@ -1,0 +1,19 @@
+if ZMK_SPLIT && ZMK_SPLIT_SERIAL && ZMK_SPLIT_BLE
+
+menu "Split Transport Init"
+
+config ZMK_SPLIT_INIT_MODE_GPIO_LABEL
+    string "gpio label (port)"
+    default "GPIO_0"
+
+config ZMK_SPLIT_INIT_MODE_GPIO_PIN
+    int "gpio pin"
+    default "10"
+
+config ZMK_SPLIT_INIT_MODE_GPIO_PULL_UP
+    bool "gpio pull up"
+    default y
+
+endmenu
+
+endif

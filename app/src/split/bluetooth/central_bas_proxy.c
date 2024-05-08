@@ -15,6 +15,11 @@
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
+//TODO TODO TODO test this
+#if defined(CONFIG_ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_PROXY) && defined(CONFIG_ZMK_SPLIT_SERIAL)
+#error bas proxy not tested/implemented for serial mode
+#endif
+
 #include <zmk/event_manager.h>
 #include <zmk/battery.h>
 #include <zmk/events/battery_state_changed.h>
@@ -90,7 +95,7 @@ int peripheral_batt_lvl_listener(const zmk_event_t *eh) {
     if (rc < 0 && rc != -ENOTCONN) {
         LOG_WRN("Failed to notify hosts of peripheral battery level: %d", rc);
     }
-
+err
     return ZMK_EV_EVENT_BUBBLE;
 };
 

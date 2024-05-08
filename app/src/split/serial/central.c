@@ -8,6 +8,7 @@
 
 #include <zmk/split/central.h>
 #include <zmk/split/serial/serial.h>
+#include <zmk/split/service.h>
 #include <zmk/events/position_state_changed.h>
 
 // TODO TODO TODO
@@ -17,6 +18,15 @@ LOG_MODULE_DECLARE(slicemk);
 #define POSITION_STATE_DATA_LEN 16
 static uint8_t position_state[POSITION_STATE_DATA_LEN];
 static uint8_t changed_positions[POSITION_STATE_DATA_LEN];
+
+void send_split_run_serial_impl(struct zmk_split_run_behavior_payload_wrapper *payload_wrapper) {
+#ifdef CONFIG_ZMK_SPLIT_SERIAL_UART
+    LOG_INF("sending to split peripheral over uart");
+    //TODO TODO TODO : do not send the full payload but just offset of behavior_dev + len(behavior_dev)
+    serial_write_uart(0x70726200, &payload_wrapper->payload, sizeof(struct zmk_split_run_behavior_payload));
+#endif
+
+}
 
 static void serial_handle_bitmap(uint8_t *data, uint8_t len) {
     for (int i = 0; i < POSITION_STATE_DATA_LEN; i++) {

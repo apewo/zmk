@@ -71,3 +71,4 @@ endif
 
 rsource "bluetooth/Kconfig"
 rsource "serial/Kconfig"
+rsource "init/Kconfig"

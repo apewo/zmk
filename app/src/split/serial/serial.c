@@ -11,6 +11,8 @@
 
 #include <zmk/split/serial/serial.h>
 
+#include <zmk/split/service.h>
+
 // TODO TODO TODO
 #include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(slicemk);
@@ -167,6 +169,9 @@ static void serial_rx_timer_handler(struct k_timer *timer) {
 #endif
 
 static int serial_init(void) {
+    if(split_transport_mode != ZMK_SPLIT_MODE_SERIAL){
+        return 0;
+    }
     struct k_work_queue_config uart_tx_cfg = {.name = "serial_wq"};
     k_work_queue_start(&serial_wq, serial_wq_stack, K_THREAD_STACK_SIZEOF(serial_wq_stack), 14,
                        &uart_tx_cfg);

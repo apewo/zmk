@@ -71,7 +71,14 @@ void split_central_split_run_callback(struct k_work *work) {
     LOG_DBG("");
 
     while (k_msgq_get(&zmk_split_central_split_run_msgq, &payload_wrapper, K_NO_WAIT) == 0) {
-        send_split_run_impl(&payload_wrapper);
+        if(split_transport_mode == ZMK_SPLIT_MODE_BLUETOOTH){
+            LOG_INF("send split behavior over bluetooth");
+            send_split_run_bt_impl(&payload_wrapper);
+        }
+        if(split_transport_mode == ZMK_SPLIT_MODE_SERIAL){
+            LOG_INF("send split behavior over serial");
+            send_split_run_serial_impl(&payload_wrapper);
+        }
     }
 }
 

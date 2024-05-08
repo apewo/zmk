@@ -15,6 +15,14 @@
 #include <zephyr/logging/log.h>
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
+//TODO: implement this
+#if defined(ZMK_KEYMAP_HAS_SENSORS) && defined(CONFIG_ZMK_SPLIT_SERIAL)
+#error sensors not implemented for serial mode
+#endif
+#if defined(CONFIG_ZMK_SPLIT_PERIPHERAL_HID_INDICATORS) && defined(CONFIG_ZMK_SPLIT_SERIAL)
+#error peripheral not implemented for serial mode
+#endif
+
 static uint8_t position_state[ZMK_SPLIT_POS_STATE_LEN];
 #if ZMK_KEYMAP_HAS_SENSORS
 static struct sensor_event last_sensor_event;
@@ -31,7 +39,14 @@ void send_position_state_callback(struct k_work *work) {
     uint8_t state[ZMK_SPLIT_POS_STATE_LEN];
 
     while (k_msgq_get(&position_state_msgq, &state, K_NO_WAIT) == 0) {
-        send_position_state_impl(state, sizeof(state));
+        if(split_transport_mode == ZMK_SPLIT_MODE_BLUETOOTH){
+            LOG_INF("send_position over bluetooth");
+            send_position_state_impl_bluetooth(state, sizeof(state));
+        }
+        if(split_transport_mode == ZMK_SPLIT_MODE_SERIAL){
+            LOG_INF("send_position over serial");
+            send_position_state_impl_serial(state, sizeof(state));
+        }
     }
 };
 
@@ -75,6 +90,7 @@ K_MSGQ_DEFINE(sensor_state_msgq, sizeof(struct sensor_event),
 
 void send_sensor_state_callback(struct k_work *work) {
     while (k_msgq_get(&sensor_state_msgq, &last_sensor_event, K_NO_WAIT) == 0) {
+        //TODO TODO TODO
         send_sensor_state_impl(&last_sensor_event, sizeof(last_sensor_event));
     }
 };

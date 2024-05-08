@@ -20,6 +20,8 @@
 #include <zephyr/bluetooth/gatt.h>
 #include <zephyr/bluetooth/hci_types.h>
 
+#include <zmk/split/service.h>
+
 #if IS_ENABLED(CONFIG_SETTINGS)
 
 #include <zephyr/settings/settings.h>
@@ -147,6 +149,10 @@ bool zmk_split_bt_peripheral_is_connected(void) { return is_connected; }
 bool zmk_split_bt_peripheral_is_bonded(void) { return is_bonded; }
 
 static int zmk_peripheral_ble_init(void) {
+    if(split_transport_mode != ZMK_SPLIT_MODE_BLUETOOTH){
+        return 0;
+    }
+
     int err = bt_enable(NULL);
 
     if (err) {

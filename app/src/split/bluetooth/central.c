@@ -713,7 +713,7 @@ static struct bt_conn_cb conn_callbacks = {
     .disconnected = split_central_disconnected,
 };
 
-void send_split_run_impl(struct zmk_split_run_behavior_payload_wrapper *payload_wrapper) {
+void send_split_run_bt_impl(struct zmk_split_run_behavior_payload_wrapper *payload_wrapper) {
     if (peripherals[payload_wrapper->source].state != PERIPHERAL_SLOT_STATE_CONNECTED) {
         LOG_ERR("Source not connected");
         return;
@@ -771,6 +771,9 @@ int zmk_split_bt_update_hid_indicator(zmk_hid_indicators_t indicators) {
 #endif // IS_ENABLED(CONFIG_ZMK_SPLIT_PERIPHERAL_HID_INDICATORS)
 
 static int zmk_split_bt_central_init(void) {
+    if(split_transport_mode != ZMK_SPLIT_MODE_BLUETOOTH){
+        return 0;
+    }
     bt_conn_cb_register(&conn_callbacks);
     return IS_ENABLED(CONFIG_ZMK_BLE_CLEAR_BONDS_ON_START) ? 0 : start_scanning();
 }

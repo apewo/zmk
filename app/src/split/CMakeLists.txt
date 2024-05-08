@@ -21,3 +21,7 @@ endif()
 if (CONFIG_ZMK_SPLIT_SERIAL)
     add_subdirectory(serial)
 endif()
+
+if (CONFIG_ZMK_SPLIT_SERIAL OR CONFIG_ZMK_SPLIT_BLE)
+    add_subdirectory(init)
+endif()
