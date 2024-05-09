@@ -16,9 +16,9 @@
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 //TODO: implement this
-#if defined(ZMK_KEYMAP_HAS_SENSORS) && defined(CONFIG_ZMK_SPLIT_SERIAL)
-#error sensors not implemented for serial mode
-#endif
+// #if defined(ZMK_KEYMAP_HAS_SENSORS) && defined(CONFIG_ZMK_SPLIT_SERIAL)
+// #error sensors not implemented for serial mode
+// #endif
 #if defined(CONFIG_ZMK_SPLIT_PERIPHERAL_HID_INDICATORS) && defined(CONFIG_ZMK_SPLIT_SERIAL)
 #error peripheral not implemented for serial mode
 #endif
